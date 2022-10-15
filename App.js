@@ -1,20 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, StatusBar } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  /* Importamos os recursos necessarios para nossa navegação */
+  import { NavigationContainer } from '@react-navigation/native';
+  import { createStackNavigator } from '@react-navigation/stack';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  /* Importamos nossas páginas criadas para inserir dentro da navegação */
+  import Home from './src/pages/Home';
+  import Lojas from './src/pages/Lojas';
+  import Localizacao from './src/pages/Localizacao';
+
+  /* Criamos nosso navegador com a variavel Stack */
+  const Stack = createStackNavigator();
+
+  function App() {  
+    return(
+      /* Abre container da navegação */
+      <NavigationContainer>
+        {/* Insere a navegação Stack dentro container */}
+        <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+        >
+          {/*Insere as páginas dentro da navegação*/}
+          <Stack.Screen name="Home" component={Home} 
+          options={{ title: 'Localcars: Pontos de recarga e lojas',
+          headerStyle: {backgroundColor: '#1371ff'},
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20
+          }
+          }}/>
+          <Stack.Screen name="Lojas" component={Lojas}
+          options={{ title: 'Lojas',
+          headerStyle: {backgroundColor: '#1371ff'},
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20
+          }
+          }} />
+           <Stack.Screen name="Localizacao" component={Localizacao}
+          options={{ title: 'Localização',
+          headerStyle: {backgroundColor: '#1371ff'},
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20
+          }
+          }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
+  export default App;
